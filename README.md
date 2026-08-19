@@ -239,7 +239,7 @@ python -m pytest tests/test_safety_controller.py -v
 Run the campaign simulation benchmarking Scenarios A, B, C, and D:
 
 ```bash
-python -c "import sys; sys.path.insert(0, 'src'); from dialguard.simulation.runner import CampaignSimulator, print_comparison_tables; sim = CampaignSimulator(num_agents=10, num_borrowers=200); print_comparison_tables(sim.run_all_scenarios())"
+python -m dialguard.simulation.runner
 ```
 
 ---
@@ -256,10 +256,10 @@ python -c "import sys; sys.path.insert(0, 'src'); from dialguard.simulation.runn
 Metric                               | Progressive Dialer     | Predictive Dialer     
 ----------------------------------------------------------------------------------------
 Calls Attempted                      | 200                    | 200                   
-Calls Answered                       | 33                     | 32                    
-Calls Completed                      | 33                     | 32                    
-Calls Failed / Unanswered            | 167                    | 168                   
-Agent Utilization (%)                |                 32.2% |                 32.7%
+Calls Answered                       | 43                     | 42                    
+Calls Completed                      | 43                     | 42                    
+Calls Failed / Unanswered            | 157                    | 158                   
+Agent Utilization (%)                |                 40.8% |                 44.3%
 Safety Throttles / Cap Hits          | 0                      | 60                    
 ----------------------------------------------------------------------------------------
 
@@ -268,22 +268,22 @@ Safety Throttles / Cap Hits          | 0                      | 60
 Metric                               | Progressive Dialer     | Predictive Dialer     
 ----------------------------------------------------------------------------------------
 Calls Attempted                      | 200                    | 200                   
-Calls Answered                       | 104                    | 98                    
-Calls Completed                      | 104                    | 97                    
-Calls Failed / Unanswered            | 96                     | 102                   
-Agent Utilization (%)                |                 56.7% |                 61.5%
-Safety Throttles / Cap Hits          | 0                      | 59                    
+Calls Answered                       | 101                    | 90                    
+Calls Completed                      | 101                    | 90                    
+Calls Failed / Unanswered            | 99                     | 110                   
+Agent Utilization (%)                |                 55.5% |                 52.7%
+Safety Throttles / Cap Hits          | 0                      | 51                    
 ----------------------------------------------------------------------------------------
 
 >> Scenario C (High Answer: 70%, Talk: 180s)
 ----------------------------------------------------------------------------------------
 Metric                               | Progressive Dialer     | Predictive Dialer     
 ----------------------------------------------------------------------------------------
-Calls Attempted                      | 100                    | 96                    
-Calls Answered                       | 69                     | 71                    
-Calls Completed                      | 60                     | 61                    
-Calls Failed / Unanswered            | 31                     | 25                    
-Agent Utilization (%)                |                 83.3% |                 84.0%
+Calls Attempted                      | 103                    | 103                   
+Calls Answered                       | 72                     | 74                    
+Calls Completed                      | 66                     | 66                    
+Calls Failed / Unanswered            | 31                     | 29                    
+Agent Utilization (%)                |                 82.8% |                 82.8%
 Safety Throttles / Cap Hits          | 0                      | 59                    
 ----------------------------------------------------------------------------------------
 
@@ -291,13 +291,13 @@ Safety Throttles / Cap Hits          | 0                      | 59
 ----------------------------------------------------------------------------------------
 Metric                               | Progressive Dialer     | Predictive Dialer     
 ----------------------------------------------------------------------------------------
-Calls Attempted                      | 37                     | 88                    
-Calls Answered                       | 25                     | 33                    
-Calls Completed                      | 20                     | 30                    
-Calls Failed / Unanswered            | 22                     | 65                    
-Agent Utilization (%)                |                 15.8% |                 23.2%
-Safety Throttles / Cap Hits          | 0                      | 47                    
-Progressive Fallback Cycles          | N/A                    | 41                    
+Calls Attempted                      | 173                    | 169                   
+Calls Answered                       | 58                     | 64                    
+Calls Completed                      | 58                     | 64                    
+Calls Failed / Unanswered            | 115                    | 105                   
+Agent Utilization (%)                |                 44.5% |                 41.2%
+Safety Throttles / Cap Hits          | 0                      | 60                    
+Progressive Fallback Cycles          | N/A                    | 59                    
 ----------------------------------------------------------------------------------------
 ```
 
