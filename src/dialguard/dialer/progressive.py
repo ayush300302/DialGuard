@@ -7,6 +7,7 @@ from dialguard.models.agent import Agent
 from dialguard.models.call import Call
 from dialguard.repository.in_memory import InMemoryRepository
 from dialguard.safety.safety_controller import SafetyContext, SafetyController
+from dialguard.state.agent_state import AgentState
 from dialguard.state.call_state import CallState
 from dialguard.telecom.provider import TelecomProvider
 
@@ -107,6 +108,18 @@ class ProgressiveDialer:
             )
             if success:
                 initiated_count += 1
+            else:
+                # Carrier initiation failed / timed out before INITIATED
+                if call.state == CallState.RESERVED:
+                    try:
+                        call.transition_to(CallState.CANCELLED)
+                    except Exception:
+                        pass
+                if agent.state == AgentState.RESERVED:
+                    try:
+                        agent.transition_to(AgentState.AVAILABLE)
+                    except Exception:
+                        pass
 
         return DialingResult(
             requested_calls=requested_dials,

@@ -163,6 +163,14 @@ class ProviderEventHandler:
                             elif agent.can_transition_to(AgentState.WRAP_UP):
                                 agent.transition_to(AgentState.WRAP_UP)
                         return True
+                    elif (
+                        call.state == CallState.RESERVED
+                        and call.can_transition_to(CallState.CANCELLED)
+                    ):
+                        call.transition_to(CallState.CANCELLED)
+                        if agent and agent.can_transition_to(AgentState.AVAILABLE):
+                            agent.transition_to(AgentState.AVAILABLE)
+                        return True
                     else:
                         logger.warning(
                             "Cannot fail call '%s' in state '%s'",

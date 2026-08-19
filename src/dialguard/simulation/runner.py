@@ -202,8 +202,11 @@ class CampaignSimulator:
 
             metrics.total_dials_attempted += dials_attempted
 
-            # 5. Simulate carrier response for newly allocated/initiated calls
+            # 5. Simulate carrier response only for calls that reached INITIATED state
             for agent, call in allocated_pairs:
+                if call.state != CallState.INITIATED:
+                    continue
+
                 # Ringing
                 event_handler.handle_event(
                     ProviderCallEvent(

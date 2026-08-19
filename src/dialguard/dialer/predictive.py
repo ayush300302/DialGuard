@@ -16,6 +16,7 @@ from dialguard.safety.safety_controller import (
     SafetyController,
     SafetyDecision,
 )
+from dialguard.state.agent_state import AgentState
 from dialguard.state.call_state import CallState
 from dialguard.telecom.provider import TelecomProvider
 
@@ -120,6 +121,18 @@ class PredictiveDialer:
                 )
                 if success:
                     initiated_count += 1
+                else:
+                    # Carrier initiation failed / timed out before INITIATED
+                    if call.state == CallState.RESERVED:
+                        try:
+                            call.transition_to(CallState.CANCELLED)
+                        except Exception:
+                            pass
+                    if agent.state == AgentState.RESERVED:
+                        try:
+                            agent.transition_to(AgentState.AVAILABLE)
+                        except Exception:
+                            pass
 
         return PredictiveDialingResult(
             pacing_recommendation=recommendation,
